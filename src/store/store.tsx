@@ -13,10 +13,11 @@ interface country {
 interface AppStoreModel {
   countryList: country[];
   isEdit: boolean;
-  updateCountry: country[];
+  updateCountry: any;
   addNewCountry: Action<AppStoreModel, country>;
   removeCountry: Action<AppStoreModel, string>;
   editCountry: Action<AppStoreModel, country>;
+  updateEdit: Action<AppStoreModel, country>;
 }
 
 const AppStore: AppStoreModel = {
@@ -47,7 +48,7 @@ const AppStore: AppStoreModel = {
     },
   ],
   isEdit: false,
-  updateCountry: [],
+  updateCountry: {},
 
   addNewCountry: action((state, payload) => {
     state.countryList.push(payload);
@@ -60,8 +61,17 @@ const AppStore: AppStoreModel = {
   }),
 
   editCountry: action((state, payload) => {
-      state.isEdit = true      
-      // state.updateCountry.push(payload) 
+    state.updateCountry = payload;
+    state.isEdit = true;
+  }),
+
+  updateEdit: action((state, payload) => {
+    state.isEdit = !true;
+    console.log(payload);
+    const id = payload.id;
+    state.countryList = state.countryList.map((user) => {
+      return user.id === id ? payload : user;
+    });
   }),
 };
 
@@ -76,5 +86,4 @@ export default createStore(RootStore);
 const typedHooks = createTypedHooks<TRootStore>();
 
 export const useStoreActions = typedHooks.useStoreActions;
-export const useStoreDispatch = typedHooks.useStoreDispatch;
 export const useStoreState = typedHooks.useStoreState;

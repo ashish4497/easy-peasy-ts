@@ -27,7 +27,7 @@ const AdminCountryList: React.FC = () => {
   };
 
   const handleEdit = (country: any) => {
-    if (isEdit === true) {
+    if (isEdit == true) {
       navigate("/countryinfo");
     }
     editCountry(country);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import { useStoreActions, useStoreState } from "../store/store";
 import { useNavigate } from "react-router-dom";
@@ -31,11 +31,22 @@ export default function CountryInfo() {
     denesity: "",
     id: Math.floor(Math.random() * 100),
   });
-  const { addNewCountry } = useStoreActions(
-    ({ AppStore: { addNewCountry } }) => ({ addNewCountry })
+  const { addNewCountry, updateEdit } = useStoreActions(
+    ({ AppStore: { addNewCountry, updateEdit } }) => ({
+      addNewCountry,
+      updateEdit,
+    })
   );
-  const { isEdit } = useStoreState(({ AppStore: { isEdit } }) => ({ isEdit }));
+  const { isEdit, updateCountry } = useStoreState(
+    ({ AppStore: { isEdit, updateCountry } }) => ({ isEdit, updateCountry })
+  );
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isEdit === true) {
+      setCountryInfo(updateCountry);
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name = e.target.name;
@@ -59,6 +70,18 @@ export default function CountryInfo() {
     navigate("/adminCountryList");
   };
 
+  const handleUpdate = () => {
+    updateEdit(countryInfo);
+    setCountryInfo({
+      name: "",
+      population: "",
+      area: "",
+      review: "",
+      denesity: "",
+      id: "",
+    });
+    navigate("/adminCountryList");
+  };
   return (
     <>
       <Header />
@@ -143,7 +166,7 @@ export default function CountryInfo() {
                     marginTop: 14,
                   }}
                   variant="contained"
-                  // onClick={handleSubmit}
+                  onClick={handleUpdate}
                 >
                   Update
                 </Button>
