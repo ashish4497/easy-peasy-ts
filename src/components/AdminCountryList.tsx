@@ -16,12 +16,14 @@ const AdminCountryList: React.FC = () => {
   const { countryList: countryInfo, isEdit } = useStoreState(
     ({ AppStore: { countryList, isEdit } }) => ({ countryList, isEdit })
   );
+
   const { removeCountry, editCountry } = useStoreActions(
     ({ AppStore: { removeCountry, editCountry } }) => ({
       removeCountry,
       editCountry,
     })
   );
+  
   const handleRemove = (id: any) => {
     removeCountry(id);
   };

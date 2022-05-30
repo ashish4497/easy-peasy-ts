@@ -62,16 +62,16 @@ const AppStore: AppStoreModel = {
   }),
 
   editCountry: action((state, payload) => {
-    state.updateCountry = payload;
     state.isEdit = true;
+    state.updateCountry = payload;  
   }),
 
   updateEdit: action((state, payload) => {
     state.isEdit = !true;
     console.log(payload);
     const id = payload.id;
-    state.countryList = state.countryList.map((user) => {
-      return user.id === id ? payload : user;
+    state.countryList = state.countryList.map((country) => {
+      return country.id === id ? payload : country;
     });
   }),
 };

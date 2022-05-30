@@ -31,22 +31,25 @@ export default function CountryInfo() {
     denesity: "",
     id: Math.floor(Math.random() * 100),
   });
+
   const { addNewCountry, updateEdit } = useStoreActions(
     ({ AppStore: { addNewCountry, updateEdit } }) => ({
       addNewCountry,
       updateEdit,
     })
   );
+
   const { isEdit, updateCountry } = useStoreState(
     ({ AppStore: { isEdit, updateCountry } }) => ({ isEdit, updateCountry })
   );
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isEdit === true) {
+    if (isEdit == true) {
       setCountryInfo(updateCountry);
     }
-  }, []);
+  },[]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name = e.target.name;
@@ -71,7 +74,6 @@ export default function CountryInfo() {
   };
 
   const handleUpdate = () => {
-    updateEdit(countryInfo);
     setCountryInfo({
       name: "",
       population: "",
@@ -80,8 +82,10 @@ export default function CountryInfo() {
       denesity: "",
       id: "",
     });
+    updateEdit(countryInfo);
     navigate("/adminCountryList");
   };
+  
   return (
     <>
       <Header />
