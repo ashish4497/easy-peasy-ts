@@ -49,7 +49,7 @@ const AdminCountryList: React.FC = () => {
             <Card
               sx={{
                 maxWidth: 355,
-                height: 220,
+                // height: 260,
                 marginBottom: 2,
                 marginRight: 5,
                 textTransform: "capitalize",
@@ -72,7 +72,7 @@ const AdminCountryList: React.FC = () => {
                 <Typography variant="subtitle1" color="text.secondary">
                   Denesity : {country.denesity}
                 </Typography>
-                <CardActions>
+                <CardActions >
                   <Button size="small" onClick={() => handleRemove(country.id)}>
                     Remove
                   </Button>

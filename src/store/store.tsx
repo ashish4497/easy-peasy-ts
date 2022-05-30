@@ -51,7 +51,8 @@ const AppStore: AppStoreModel = {
   updateCountry: {},
 
   addNewCountry: action((state, payload) => {
-    state.countryList.push(payload);
+    // state.countryList.push(payload);
+    state.countryList = [...state.countryList, payload]
   }),
 
   removeCountry: action((state, payload) => {
